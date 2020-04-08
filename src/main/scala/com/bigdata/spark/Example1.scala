@@ -1,14 +1,10 @@
-package Spark_Demo_Projects
+package com.bigdata.spark
 
 /**
   * Created by Pankaj Gaur on 08-04-2020.
   */
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
-import org.apache.spark.sql._
 
 object Example1 {
   def main(args: Array[String]) {
