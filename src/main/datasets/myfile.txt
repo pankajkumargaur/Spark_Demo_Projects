@@ -1,0 +1,5 @@
+Hi This is sample application we are learning BigData and want to implrement bigdata use case
+These examples give a quick overview of the Spark API. Spark is built on the concept of distributed datasets, which contain arbitrary Java or Python objects. You create a dataset from external data
+and Machine Learning API. These high level APIs provide a concise way to conduct certain data operations. In this page, we will show examples using RDD API as well as examples using high level APIs
+In Spark, a DataFrame is a distributed collection of data organized into named columns. Users can use DataFrame API to perform various relational operations
+In this example, we read a table stored in a database and calculate the number of people for every age. Finally, we save the calculated result to S3
