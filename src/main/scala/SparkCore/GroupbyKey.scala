@@ -16,7 +16,7 @@ object GroupbyKey {
     // below links shows the diffrence between reduceby key vs groupby key
     // https://databricks.gitbooks.io/databricks-spark-knowledge-base/content/best_practices/prefer_reducebykey_over_groupbykey.html
 
-    val spark = SparkSession.builder.master("local[*]").appName("reducebykeyvsGroupbykey").getOrCreate()
+    val spark = SparkSession.builder.master("local[*]").appName("GroupbyKey").getOrCreate()
     val sc = spark.sparkContext
 
 
