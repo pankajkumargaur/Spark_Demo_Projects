@@ -2,15 +2,14 @@ package SparkCore
 
 /**
   * Created by Pankaj Gaur on 03-07-2020.
+  *
+  // Use case to load data from file  and remove header and take out only the record which has age > 21 and save result
+  // Tranformaion used - Map  filter
   */
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
-import org.apache.spark.sql._
 
-object Example1 {
+object Program_Map_Filter {
   def main(args: Array[String]) {
 
     val spark = SparkSession.builder().master("local[1]")
@@ -21,8 +20,10 @@ object Example1 {
 
     val myRDD = sc.textFile("src\\main\\datasets\\Customer.csv")
 
+    // remove header from RDD
     val filteredRDD =  myRDD.filter(line => !line.startsWith("Id"))
 
+    // take out 2nd  and 3rd element from array of string and filter age > 21
     val res = filteredRDD.map(rec =>  {
       val fields = rec.split(",")
       (fields(1),fields(2).toInt)

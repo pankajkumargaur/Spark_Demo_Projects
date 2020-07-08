@@ -1,16 +1,12 @@
-package SparkCore.Days2_Spark
+package SparkCore
 
 /**
   * Created by Pankaj Gaur on 06-07-2020.
   */
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
-import org.apache.spark.sql._
 
-object Example1 {
+object ReducebyKey {
   def main(args: Array[String]) {
 
     val spark = SparkSession.builder().master("local[*]")
@@ -21,12 +17,7 @@ object Example1 {
 
     val rdd = sc.textFile("src//main//datasets//myfile.txt",5)
 
-
     println(rdd.getNumPartitions)
-
-
-    //val rdd = sc.textFile("E:\\work\\Spark_Project_Repos\\Spark_Demo_Projects\\src\\main\\datasets\\myfile.txt",5)
-
 
 
     val m = rdd.flatMap(line => {
@@ -51,18 +42,17 @@ object Example1 {
 
     // map partitions eaxmples
 
-   /* val numbers  = sc.parallelize(1 to 9, 3)
-   /* numbers.map(x => {
+    val numbers  = sc.parallelize(1 to 9, 3)
+
+    numbers.map(x => {
       println("inside map function")
       (x, "hello")
     }).collect().foreach(println)
-*/
 
-  /*  numbers.mapPartitions(iter =>{
+    numbers.mapPartitions(iter =>{
       println("Inside Map Partitions")
       (List(iter.next).iterator)
     }).collect().foreach(println)
-*/
 
 
     val rdd1 =  sc.parallelize(List("yellow",   "red", "blue",     "cyan", "black"), 3)
@@ -85,7 +75,6 @@ object Example1 {
 
     // map partitions eaxmples
 
-*/
 
 
   }

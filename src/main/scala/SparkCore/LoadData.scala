@@ -20,9 +20,7 @@ object LoadData {
 
     val sc = sparkSession.sparkContext
 
-
     val transactionRdd = sc.textFile(inputPath,5)
-
 
     println(s"No of partitions is ${transactionRdd.getNumPartitions}")
 
