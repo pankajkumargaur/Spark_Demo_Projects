@@ -56,6 +56,8 @@ object ReducebyKey {
 
 
     val rdd1 =  sc.parallelize(List("yellow",   "red", "blue",     "cyan", "black"), 3)
+    val rdd2 =  sc.parallelize(List("yellow",   "red", "blue",     "cyan", "black"), 3)
+
 
     val mapped =   rdd1.mapPartitionsWithIndex{
       // 'index' represents the Partition No
