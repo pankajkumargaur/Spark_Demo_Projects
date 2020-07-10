@@ -18,7 +18,7 @@ object Program_Map_Filter {
 
     val sc = spark.sparkContext
 
-    val myRDD = sc.textFile("src\\main\\datasets\\Customer.csv")
+    val myRDD = sc.textFile("src\\main\\datasets\\Customer.csv",5)
 
     // remove header from RDD
     val filteredRDD =  myRDD.filter(line => !line.startsWith("Id"))
@@ -31,7 +31,8 @@ object Program_Map_Filter {
 
     res.foreach(println)
 
-    res.saveAsTextFile("E:\\work\\datasets\\mytargetoutput")
+
+    res.coalesce(1).saveAsTextFile("src\\main\\output\\result")
 
   }
 }

@@ -21,10 +21,13 @@ object HandleBadRecords {
 
     val sc = spark.sparkContext
 
-    val dataRDD = sc.textFile("src\\main\\datasets\\sales-error.csv")//.persist(StorageLevel.MEMORY_ONLY_SER)
+    val dataRDD = sc.textFile("src\\main\\datasets\\sales-error.csv")
 
 
     val parsedData = dataRDD.map(SalesDataParser.parse).persist(StorageLevel.MEMORY_ONLY_SER)
+
+
+
 
     val malformedRecords = parsedData.filter(x => x.isLeft).map(x=> x.left.get._2).cache()
 
@@ -37,8 +40,7 @@ object HandleBadRecords {
     malformedRecords.collect().foreach(println)
     goodRecords.collect().foreach(println)
 
-
-
+    goodRecords.filter(s => s.itemId == "333").collect().foreach(println)
 
 
 
