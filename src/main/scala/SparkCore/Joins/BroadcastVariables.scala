@@ -73,6 +73,9 @@ object BroadcastVariables {
                            searchToken: String): RDD[(String, String)] = {
     countriesRDD.filter(_.startsWith(searchToken))
       .map(country => (country, countryCache.value(country)))
+
+    //countriesRDD.filter(str => str.startsWith(searchToken)).map
+
   }
 
 }
