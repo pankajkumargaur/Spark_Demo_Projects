@@ -74,6 +74,21 @@
       <version>1.4</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming_2.11</artifactId>
+      <version>2.3.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql-kafka-0-10_2.11</artifactId>
+      <version>2.3.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+
 
   </dependencies>
 

@@ -10,7 +10,7 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.sql._
 import org.apache.spark.storage.StorageLevel
-
+// SparkCore.HandleBadRecords
 object HandleBadRecords {
   def main(args: Array[String]) {
 
@@ -23,11 +23,15 @@ object HandleBadRecords {
 
     val dataRDD = sc.textFile("src\\main\\datasets\\sales-error.csv")
 
-
-    val parsedData = dataRDD.map(SalesDataParser.parse).persist(StorageLevel.MEMORY_ONLY_SER)
-
+    dataRDD.repartition(10)
 
 
+    val parsedData = dataRDD.map(SalesDataParser.parse).persist(StorageLevel.DISK_ONLY)
+
+    // parsedData --- saved data in memory
+
+  /*  malformedRecords -> parsedData(cache) -> dataRDD -> disk
+    goodRecords -> parsedData -> dataRDD -> disk*/
 
     val malformedRecords = parsedData.filter(x => x.isLeft).map(x=> x.left.get._2).cache()
 
@@ -42,6 +46,8 @@ object HandleBadRecords {
 
     goodRecords.filter(s => s.itemId == "333").collect().foreach(println)
 
+
+    goodRecords.coalesce(1).saveAsTextFile("")
 
 
 
