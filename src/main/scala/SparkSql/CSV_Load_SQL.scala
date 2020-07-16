@@ -9,8 +9,9 @@ import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.sql._
-
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types._
+import org.apache.spark.storage.StorageLevel
 
 
 //SparkSql.CSV_Load_SQL
@@ -24,16 +25,39 @@ object CSV_Load_SQL {
       .load("src/main/datasets/sales.csv")
 */
 
+
     val df = spark.read.format("csv")
      // .option("header", "true")
       .option("inferSchema", "true")
       //.option("delimiter" , ",")
       .load("src/main/datasets/sales.csv")
-      .toDF("transactionId", "customerId","itemId","itemValue")
+      .toDF("transactionId", "customerId","itemId","itemValue").persist(StorageLevel.MEMORY_ONLY_SER)
+
+
 
     //val df = spark.read.format("jdbc").load("src/main/datasets/sales.csv")
 
    // val df1 = spark.read.csv("src/main/datasets/sales.csv")
+
+
+    val options  = Map("inferSchema" -> "true", "delimiter" ->  ",")
+
+    val myschema = StructType(Array
+    ( StructField("transactionId", IntegerType, true),
+      StructField("customerId", IntegerType, true),
+      StructField("itemId", StringType, true),
+      StructField("itemValue", DoubleType, true)
+    ))
+
+
+
+   val df1 =   spark.read.options(options)
+      .schema(myschema)
+      .csv("src/main/datasets/sales.csv")
+
+
+    df1.printSchema()
+    df.show()
 
 
 
@@ -73,13 +97,21 @@ object CSV_Load_SQL {
       .filter($"itemId" === "222")
 */
 
+     df.filter(col("itemId") === "333")
+
+     df_result.write.mode(SaveMode.Overwrite)
+       .format("parquet").save("src/main/Output/result")
+
+     //df_result.write.save("src/main/Output/result")
+
+    /* val df_par = spark.read.load("src/main/Output/result")
+    //spark.read.parquet()
+    //spark.read.format("parquet").load()
 
 
-    df_result.write.format("parquet").save("src/main/Output/result")
-
-
-
-
+    df_par.printSchema()
+    df_par.show()
+*/
 
 
 
