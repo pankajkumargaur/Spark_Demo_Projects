@@ -29,6 +29,7 @@ object createdataframe {
       .map(rec => (rec(0),rec(1), rec(2)) ).toDF("name", "age", "city")
 
 
+
     //2 way
 
     val df = sc.textFile("src/main/datasets/asl.csv")
